@@ -1,0 +1,84 @@
+{
+  "name": "turu-turu-compiler",
+  "displayName": "Turu Turu Compiler",
+  "description": "Plays a cheerful 'turu turu' sound when your C++ file compiles successfully 🎉",
+  "version": "1.0.0",
+  "publisher": "turu-publisher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/turu-publisher/turu-turu-compiler"
+  },
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "c++",
+    "cpp",
+    "compiler",
+    "sound",
+    "celebration"
+  ],
+  "activationEvents": [
+    "onLanguage:cpp",
+    "workspaceContains:**/*.cpp",
+    "onCommand:turuTuruCompiler.testSound",
+    "onCommand:turuTuruCompiler.toggleNotification"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "turuTuruCompiler.testSound",
+        "title": "Turu Turu: Test Celebration Sound 🎉"
+      },
+      {
+        "command": "turuTuruCompiler.toggleNotification",
+        "title": "Turu Turu: Toggle Compilation Notifications"
+      }
+    ],
+    "configuration": {
+      "title": "Turu Turu Compiler",
+      "properties": {
+        "turuTuruCompiler.showNotification": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a notification popup when C++ compilation succeeds"
+        },
+        "turuTuruCompiler.volume": {
+          "type": "number",
+          "default": 0.8,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Volume of the celebration sound (0.0 to 1.0)"
+        },
+        "turuTuruCompiler.detectCommands": {
+          "type": "array",
+          "default": ["g++", "gcc", "clang++", "clang", "cmake", "make", "ninja"],
+          "description": "List of compile commands to watch for successful exit"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
